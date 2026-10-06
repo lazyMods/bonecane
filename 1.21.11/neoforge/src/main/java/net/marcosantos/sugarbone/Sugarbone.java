@@ -16,11 +16,6 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 public class Sugarbone {
 
     public Sugarbone(IEventBus bus, ModContainer container) {
-        bus.addListener(this::commonSetup);
-    }
-
-    public void commonSetup(FMLCommonSetupEvent ev) {
-        DispenserBlock.registerBehavior(Items.BONE_MEAL, new BonemealDispenserBehavior());
     }
 
     @EventBusSubscriber(value = {Dist.CLIENT, Dist.DEDICATED_SERVER})

@@ -11,8 +11,6 @@ public class Sugarbone implements ModInitializer {
     @Override
     public void onInitialize() {
 
-        DispenserBlock.registerBehavior(Items.BONE_MEAL, new BonemealDispenserBehavior());
-
         UseBlockCallback.EVENT.register((e, l, h, hr) -> {
             if (e.getItemInHand(h).getItem() != Items.BONE_MEAL) return InteractionResult.PASS;
 

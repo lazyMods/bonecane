@@ -13,11 +13,6 @@ public class Sugarbone {
 
 	public Sugarbone(FMLJavaModLoadingContext context) {
 		var modBus = context.getModBusGroup();
-		FMLCommonSetupEvent.getBus(modBus).addListener(this::onCommonSetup);
-	}
-
-	public void onCommonSetup(FMLCommonSetupEvent ev) {
-		DispenserBlock.registerBehavior(Items.BONE_MEAL, new BonemealDispenserBehavior());
 	}
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)

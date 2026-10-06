@@ -1,6 +1,5 @@
 package net.marcosantos.sugarbone;
 
-
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.neoforged.api.distmarker.Dist;
@@ -15,29 +14,25 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 @Mod(Constants.MOD_ID)
 public class Sugarbone {
 
-    public Sugarbone(IEventBus bus, ModContainer container) {
-        bus.addListener(this::commonSetup);
-    }
+	public Sugarbone(IEventBus bus, ModContainer container) {
+	}
 
-    public void commonSetup(FMLCommonSetupEvent ev) {
-        DispenserBlock.registerBehavior(Items.BONE_MEAL, new BonemealDispenserBehavior());
-    }
+	@EventBusSubscriber(value = { Dist.CLIENT, Dist.DEDICATED_SERVER })
+	public static class ModEvents {
+		@SubscribeEvent
+		static void onRightClickBlock(PlayerInteractEvent.RightClickBlock ev) {
+			var l = ev.getLevel();
+			var bp = ev.getPos();
+			var e = ev.getEntity();
 
-    @EventBusSubscriber(value = {Dist.CLIENT, Dist.DEDICATED_SERVER})
-    public static class ModEvents {
-        @SubscribeEvent
-        static void onRightClickBlock(PlayerInteractEvent.RightClickBlock ev) {
-            var l = ev.getLevel();
-            var bp = ev.getPos();
-            var e = ev.getEntity();
+			if (e.getItemInHand(ev.getHand()).getItem() != Items.BONE_MEAL)
+				return;
 
-            if (e.getItemInHand(ev.getHand()).getItem() != Items.BONE_MEAL) return;
-
-            if (Helper.growSugarcane(bp, l)) {
-                if (!e.isCreative()) {
-                    e.getItemInHand(ev.getHand()).shrink(1);
-                }
-            }
-        }
-    }
+			if (Helper.growSugarcane(bp, l)) {
+				if (!e.isCreative()) {
+					e.getItemInHand(ev.getHand()).shrink(1);
+				}
+			}
+		}
+	}
 }
